@@ -19,3 +19,9 @@ class MessageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Messages
         fields = '__all__'
+
+
+class GallerySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = GalleryImage
+        fields = '__all__'

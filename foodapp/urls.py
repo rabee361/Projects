@@ -6,12 +6,14 @@ from django.conf import settings
 
 urlpatterns = [
     path('contact/' , contact , name="contact"),
-    path('index/' , index , name="index"),
+    path('index/' , index, name="index"),
     path('blog/' , ListBlogs.as_view() , name="blog"),
     path('recipes/' , test , name="test"),
     path('single-blog/<str:pk>', single_blog , name="single-blog"),
     path('about/' , about , name="about"),
-    path('test/' , test , name="test")
+    path('test/' , test , name="test"),
+    path('stream-text-file/', stream_large_text_file, name='stream_text_file'),
+
 
 ]
 

@@ -20,7 +20,7 @@ class Ingredient_name(models.Model):
 
 
 class Ingredient(models.Model):
-    ingredient_name = models.ForeignKey(Ingredient_name , on_delete=models.CASCADE)
+    ingredient_name = models.ForeignKey(Ingredient_name , on_delete=models.CASCADE , db_index=True)
     quantity = models.IntegerField()
     unit = models.ForeignKey(Unit , on_delete=models.CASCADE)
 
@@ -75,3 +75,6 @@ class Messages(models.Model):
     def __str__(self):
         return self.message[0:50]
 
+
+class GalleryImage(models.Model):
+    image = models.ImageField(upload_to='gallery/')

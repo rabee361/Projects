@@ -1,9 +1,16 @@
 from django.shortcuts import render , redirect
 from .models import *
 from django.db.models import Q
+from foodapp.filters import RecipeFilter
+from django_filters.rest_framework import DjangoFilterBackend
 import json
+from django.http import JsonResponse
+from django.core.exceptions import ValidationError
 from django.views.generic import ListView
 from django.contrib.postgres.search import SearchVector , SearchQuery, SearchRank
+from django.http import StreamingHttpResponse
+
+
 
 def index(request):
     search_queries = []
@@ -24,6 +31,37 @@ def index(request):
     return render(request , 'index.html' , context)
 
  
+# class index2(ListView):
+#     template_name = 'index.html'
+
+#     def get_queryset(self):
+#         filterset = RecipeFilter(self.request.GET, queryset=Recipe.objects.all())
+#         if filterset.is_valid():
+#             return filterset.qs
+#         else:
+#             raise ValidationError(filterset.errors)
+
+#     def handle_no_permission(self):
+#         return JsonResponse(data={"error": "You do not have permission to access this view"}, status=403)
+
+
+
+def stream_large_text_file(request):
+    # An example of a large text file
+    large_text_file_path = '/path/to/your/large/text/file.txt'
+
+    def read_file(file_path):
+        with open(file_path, 'r') as file:
+            for line in file:
+                yield line
+
+    response = StreamingHttpResponse(read_file('C:/Users/eng.Rabee/Django Projects/foodpro/foodapp/report.txt'), content_type="text/plain")
+    response['Content-Disposition'] = 'attachment; filename="large_text_file.txt"'
+    return response
+
+
+
+
 
 def contact(request):
     if request.method =='POST':
